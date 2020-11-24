@@ -1,0 +1,85 @@
+.list-filter {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 230px;
+  height: 275px;
+  margin-right: 20px;
+  list-style: none;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+
+  @media (max-width: 576px) {
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 280px;
+    height: 120px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    padding-left: 20px;
+    font-size: 12px;
+
+    @media (max-width: 576px) {
+      width: 140px;
+      padding-left: 10px;
+      height: 25px;
+    }
+  }
+
+  &__item:first-child {
+    margin-top: 20px;
+
+    @media (max-width: 576px) {
+      flex-basis: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 5px;
+    }
+  }
+
+  &__item:not(:first-child) {
+    cursor: pointer;
+  }
+
+  &__item:hover:not(:first-child) {
+    background-color: #f1fcff;
+  }
+
+  &__item:last-child {
+    @media (max-width: 576px) {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.check {
+  padding-left: 30px;
+  font-size: 13px;
+  cursor: pointer;
+
+  &__input {
+    position: relative;
+    appearance: none;
+  }
+
+  &__input:checked + &__box {
+    background: url(./check-active.png), url(./check-mark.png) 50% 50% no-repeat;
+  }
+
+  &__box {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url(./check.png);
+    margin-left: -30px;
+  }
+}
