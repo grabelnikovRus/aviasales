@@ -22,12 +22,7 @@
     width: 460px;
   }
 
-  &__there {
-    list-style-type: none;
-    width: 460px;
-  }
-
-  &__back {
+  &__item {
     list-style-type: none;
     width: 460px;
   }
@@ -46,44 +41,12 @@
   }
 }
 
-.there {
+.item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
-  &__direction {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__time-path {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__transfer {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__title {
-    color: #a0b0b9;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  &__value {
-    font-size: 13px;
-    font-weight: 600;
-  }
-}
-
-.back {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  color: #4a4a4a;
 
   &__direction {
     display: flex;
