@@ -41,7 +41,7 @@ const CardTicket = (tick) => {
   return (
     <div className={classes['card-ticket']}>
       <ul className={`${classes['card-ticket__info']} ${classes.info}`}>
-        <li className={classes['info__prices']}>{price}</li>
+        <li className={classes['info__prices']}>{`${price} Р`}</li>
         <li className={classes['info__logo']}>
           <img src={`http://pics.avs.io/99/36/${carrier}.png`} alt="airline logo" />
         </li>

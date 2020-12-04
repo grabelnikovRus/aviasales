@@ -1,3 +1,10 @@
+class HttpError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'HttpError';
+    }
+}
+
 class ServiceAPI {
     constructor() {
         this.urlSearchId = 'https://front-test.beta.aviasales.ru/search';
@@ -12,9 +19,11 @@ class ServiceAPI {
 
     async getAviaTickets(id) {
         const response = await fetch(`${this.urlGetTickets}?searchId=${id}`);
-        if (!response.ok) throw new Error('500');
+        if (response.status === 500) throw new HttpError('Server error, a new request will be sent');
         return response.json()
     }
 }
 
 export default new ServiceAPI();
+
+export { HttpError };

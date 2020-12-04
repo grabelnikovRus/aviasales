@@ -1,18 +1,19 @@
 import api from '../API/api';
+import { HttpError } from '../API/api'
 
-export const all = () => ({ type: 'ALL_TRANSFERS' });
+export const all = () => ({ type: 'ALL' });
 
-export const no = () => ({ type: 'NO_TRANSFERS' });
+export const no = () => ({ type: 'WHITHOUT' });
 
-export const one = () => ({ type: 'ONE_TRANSFER' });
+export const one = () => ({ type: 'ONE' });
 
-export const two = () => ({ type: 'TWO_TRANSFERS' });
+export const two = () => ({ type: 'TWO' });
 
-export const three = () => ({ type: 'THREE_TRANSFERS' });
+export const three = () => ({ type: 'THREE' });
 
-export const minPrice = () => ({type: 'GET_MIN_PRICE'});
+export const minPrice = () => ({type: 'MIN'});
 
-export const quickDist = () => ({type: 'GET_QUICK'});
+export const quickDist = () => ({type: 'QUICK'});
 
 export const getId = (id) => ({
   type: 'GET_ID',
@@ -33,7 +34,7 @@ export const thunkId = () => (dispatch) => {
 
 export const getTick = (tickets) => ({
   type: 'GET_TICKETS',
-  arrTickets: tickets,
+  payload: tickets,
 });
 
 let arrTickets = [];
@@ -54,7 +55,7 @@ export const thunkTickets = () => (dispatch, getState) => {
       }
     })
     .catch((err) => {
-      if (err.message === '500') dispatch(thunkTickets());
+      if (err instanceof HttpError) dispatch(thunkTickets());
     });
 };
 

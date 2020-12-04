@@ -1,10 +1,12 @@
 .popup {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 20vh;
   width: 100%;
 }
 
-.spin {
-  align-self: center;
+.lack {
+  margin-top: 150px;
+  font-size: 20px;
 }

@@ -1,58 +1,33 @@
 import React, { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
-import { thunkTickets } from '../../actions/actions';
+import { thunkTickets } from '../../store/actions';
 import classes from './tickets.module.scss';
 import { Spin } from 'antd';
 import 'antd/lib/spin/style/index.css';
 
 import Tickets from './tickets';
 
-const TicketsContainer = ({ filter, tickets, id, fetching, getTick }) => {
+const TicketsContainer = ({ filter, filterBtn, tickets, id, fetching, getTick }) => {
   const savegetTick = useCallback(() => getTick(), [getTick]);
 
   useEffect(() => {
     if (id !== '') savegetTick();
   }, [id, savegetTick]);
 
-  const {
-    checkAllTransfers,
-    checkNoTransfers,
-    checkOneTransfer,
-    checkTwoTransfers,
-    checkThreeTransfers,
-    min,
-    quick,
-  } = filter;
+  const { checkFilters, checkAll } = filter;
+  const { min, quick } = filterBtn;
 
   const callbackChek = (item) => {
-    if (checkAllTransfers) return item;
+    if (checkAll) return item;
 
-    if (checkNoTransfers && checkOneTransfer && checkTwoTransfers)
-      return item.segments.every((i) => i.stops.length === 0 || i.stops.length === 1 || i.stops.length === 2);
-    if (checkOneTransfer && checkTwoTransfers && checkThreeTransfers)
-      return item.segments.every((i) => i.stops.length === 1 || i.stops.length === 2 || i.stops.length === 3);
-    if (checkNoTransfers && checkOneTransfer && checkThreeTransfers)
-      return item.segments.every((i) => i.stops.length === 0 || i.stops.length === 1 || i.stops.length === 3);
-    if (checkNoTransfers && checkTwoTransfers && checkThreeTransfers)
-      return item.segments.every((i) => i.stops.length === 0 || i.stops.length === 2 || i.stops.length === 3);
+    const template = {
+      0: 'whithout', 
+      1: 'one', 
+      2: 'two', 
+      3: 'three'
+    };
 
-    if (checkNoTransfers && checkOneTransfer)
-      return item.segments.every((i) => i.stops.length === 0 || i.stops.length === 1);
-    if (checkOneTransfer && checkTwoTransfers)
-      return item.segments.every((i) => i.stops.length === 1 || i.stops.length === 2);
-    if (checkNoTransfers && checkTwoTransfers)
-      return item.segments.evry((i) => i.stops.length === 0 || i.stops.length === 2);
-    if (checkOneTransfer && checkThreeTransfers)
-      return item.segments.every((i) => i.stops.length === 1 || i.stops.length === 3);
-    if (checkTwoTransfers && checkThreeTransfers)
-      return item.segments.every((i) => i.stops.length === 2 || i.stops.length === 3);
-    if (checkNoTransfers && checkTwoTransfers)
-      return item.segments.every((i) => i.stops.length === 0 || i.stops.length === 3);
-
-    if (checkNoTransfers) return item.segments.every((i) => i.stops.length === 0);
-    if (checkOneTransfer) return item.segments.every((i) => i.stops.length === 1);
-    if (checkTwoTransfers) return item.segments.every((i) => i.stops.length === 2);
-    if (checkThreeTransfers) return item.segments.every((i) => i.stops.length === 3);
+    return item.segments.every(el => checkFilters.includes(template[el.stops.length]))
   };
 
   const callbackSort = (prev, cur) => {
@@ -75,7 +50,15 @@ const TicketsContainer = ({ filter, tickets, id, fetching, getTick }) => {
   if (fetching) {
     return (
       <div className={classes.popup}>
-        <Spin className={classes.spin} />
+        <Spin />
+      </div>
+    );
+  }
+
+  if (!ticketsFilterSort.length) {
+    return (
+      <div className={classes.popup}>
+        <p className={classes.lack}>По вашему запросу билетов нет</p>
       </div>
     );
   }
@@ -85,11 +68,12 @@ const TicketsContainer = ({ filter, tickets, id, fetching, getTick }) => {
 
 const mapStateToProps = (state) => {
   const filter = state.filter;
+  const filterBtn = state.filterBtn;
   const tickets = state.ticketsArr.arrTickets
   const id = state.onLoad.id;
   const fetching = state.onLoad.isFetching;
 
-  return { filter, tickets, id, fetching };
+  return { filter, filterBtn, tickets, id, fetching };
 };
 
 export default connect(mapStateToProps, { getTick: thunkTickets })(TicketsContainer);
