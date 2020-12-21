@@ -30,9 +30,9 @@ const initialStateBtn = {
 const reducerBtn = (state = initialStateBtn, action) => {
   switch(action.type) {
     case 'MIN':
-      return {min: !state.min, quick: false}
+      return {min: true, quick: false}
     case 'QUICK':
-      return {min: false, quick: !state.quick}
+      return {min: false, quick: true}
     default:
       return state
   }
