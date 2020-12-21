@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import classes from './app.module.scss';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../store/actions';
@@ -34,6 +35,22 @@ const App = ({ min, quick ,thunkId, minPrice, quickDist }) => {
     </div>
   );
 };
+
+App.defaultProps = {
+  min: false,
+  quick: false,
+  thunkId: () => {},
+  minPrice: () => {},
+  quickDist: () => {}
+};
+
+App.propTypes = {
+  min: PropTypes.bool,
+  quick: PropTypes.bool,
+  thunkId: PropTypes.func,
+  minPrice: PropTypes.func,
+  quickDist: PropTypes.func
+}
 
 const mapStateTpProps = ({ filterBtn }) => {
   const { min, quick } = filterBtn

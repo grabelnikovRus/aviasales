@@ -1,1 +1,2 @@
-учебный проект Aviasales https://aviasales-jff42zrxw.vercel.app/
+учебный проект Aviasales aviasales-nu.vercel.app
+

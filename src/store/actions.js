@@ -1,19 +1,14 @@
 import api from '../API/api';
-import { HttpError } from '../API/api'
+import { HttpError } from '../API/api';
 
-export const all = () => ({ type: 'ALL' });
+export const nameFilter = (name) => ({
+  type: 'CHANGE_FILTER',
+  payload: name,
+});
 
-export const no = () => ({ type: 'WHITHOUT' });
+export const minPrice = () => ({ type: 'MIN' });
 
-export const one = () => ({ type: 'ONE' });
-
-export const two = () => ({ type: 'TWO' });
-
-export const three = () => ({ type: 'THREE' });
-
-export const minPrice = () => ({type: 'MIN'});
-
-export const quickDist = () => ({type: 'QUICK'});
+export const quickDist = () => ({ type: 'QUICK' });
 
 export const getId = (id) => ({
   type: 'GET_ID',
@@ -58,5 +53,3 @@ export const thunkTickets = () => (dispatch, getState) => {
       if (err instanceof HttpError) dispatch(thunkTickets());
     });
 };
-
-
